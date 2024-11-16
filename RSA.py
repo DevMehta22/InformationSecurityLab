@@ -12,8 +12,8 @@ def find_e(phi):
     return e
 
 def rsa_secrets():
-    p = 61
-    q = 53
+    p = int(input("Enter p:"))
+    q = int(input("Enter q:"))
     n = p * q
     phi = (p - 1) * (q - 1)
     e = find_e(phi)
