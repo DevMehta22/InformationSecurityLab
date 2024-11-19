@@ -2,14 +2,14 @@ import math
 
 def encrypt(key,plaintext):
     key_len = len(key)
-    num_cols = math.ceil(len(plaintext)/key_len)
+    num_rows = math.ceil(len(plaintext)/key_len)
 
-    matrix=[[' 'for _ in range(num_cols)]for _ in range(key_len)]
+    matrix=[[' ']*key_len for _ in range(num_rows)]
 
     index = 0
 
-    for i in range(key_len):
-        for j in range(num_cols):
+    for i in range(num_rows):
+        for j in range(key_len):
             if(index<len(plaintext)):
                 matrix[i][j] = plaintext[index]
                 index+=1
@@ -23,27 +23,27 @@ def encrypt(key,plaintext):
 
     ciphertext = ""
     for col in col_order:
-        for row in range(num_cols):
-            ciphertext += matrix[col][row]
+        for row in range(num_rows):
+            ciphertext += matrix[row][col]
             
     return ciphertext
 
 def decrpyt(key,ciphertext):
     key_len = len(key)
-    num_cols = math.ceil(len(ciphertext)/key_len)
-    matrix=[[' 'for _ in range(num_cols)]for _ in range(key_len)]
+    num_rows = math.ceil(len(ciphertext)/key_len)
+    matrix=[[' ']*key_len for _ in range(num_rows)]
     index = 0
     key_list = sorted(list(key))
     col_order = [key.index(k) for k in key_list]
     
     for col in col_order:
-        for row in range(num_cols):
-            matrix[col][row] = ciphertext[index]
+        for row in range(num_rows):
+            matrix[row][col] = ciphertext[index]
             index+=1
             
     plaintext=''
-    for i in range(key_len):
-        for j in  range(num_cols):
+    for i in range(num_rows):
+        for j in  range(key_len):
             plaintext+=matrix[i][j]
     
     for i in plaintext:
